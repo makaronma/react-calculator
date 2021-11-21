@@ -31,8 +31,9 @@ const reducer = (state, { type, payload }) => {
       if (state.currentOperand == null && state.previousOperand == null) {
         return state;
       }
-      const lastDigit = state.currentOperand.substr(-1);
       if (state.previousOperand == null) {
+        const lastDigit = state.currentOperand.substr(-1);
+
         return {
           ...state,
           operation: payload.operation,
