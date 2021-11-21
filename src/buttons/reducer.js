@@ -14,10 +14,10 @@ const reducer = (state, { type, payload }) => {
         return state;
       }
       if (payload.digit === "." && state.currentOperand == null) {
-        return{
+        return {
           ...state,
-          currentOperand: payload.digit
-        }
+          currentOperand: payload.digit,
+        };
       }
       if (payload.digit === "." && state.currentOperand.includes(".")) {
         return state;
@@ -31,17 +31,22 @@ const reducer = (state, { type, payload }) => {
       if (state.currentOperand == null && state.previousOperand == null) {
         return state;
       }
+      const lastDigit = state.currentOperand.substr(-1);
       if (state.previousOperand == null) {
         return {
           ...state,
           operation: payload.operation,
-          previousOperand: state.currentOperand,
+          previousOperand:
+            lastDigit === "."
+              ? state.currentOperand.slice(0, -1)
+              : state.currentOperand,
           currentOperand: null,
         };
       }
       if (state.currentOperand == null) {
         return { ...state, operation: payload.operation };
       }
+
       return {
         ...state,
         previousOperand: evaluate(state),
@@ -94,7 +99,7 @@ const reducer = (state, { type, payload }) => {
 
 const evaluate = ({ currentOperand, previousOperand, operation }) => {
   const prev = parseFloat(previousOperand);
-  const current = parseFloat(currentOperand);
+  const current = currentOperand === "." ? 0 : parseFloat(currentOperand);
   if (isNaN(prev) || isNaN(current)) return "";
   let computation = "";
   switch (operation) {
