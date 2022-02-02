@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# React Caculator
+
+## Live Demo
+https://makaronma.github.io/react-calculator/
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
